@@ -1,0 +1,58 @@
+const languageSelect = document.getElementById('language-select');
+const bookTitle = document.getElementById('book-title');
+const bookText = document.getElementById('book-text');
+const bookAudio = document.getElementById('book-audio');
+const dictInput = document.getElementById('dict-input');
+const dictText = document.getElementById('dict-text');
+
+const content = {
+    en: {
+        title: "Book Title (English)",
+        text: "This is a sample book content in English. Enjoy reading!",
+        audioSrc: "assets/audios/english-audio.mp3",
+    },
+    es: {
+        title: "Título del libro (Español)",
+        text: "Este es un contenido de libro de muestra en español.",
+        audioSrc: "assets/audios/spanish-audio.mp3",
+    },
+    fr: {
+        title: "Titre du livre (Français)",
+        text: "Voici un contenu de livre exemple en français.",
+        audioSrc: "assets/audios/french-audio.mp3",
+    },
+    ar: {
+        title: "عنوان الكتاب (العربية)",
+        text: "هذا هو محتوى الكتاب النموذجي باللغة العربية.",
+        audioSrc: "assets/audios/arabic-audio.mp3",
+    }
+};
+
+const dictionary = {
+    hello: { es: "hola", fr: "bonjour", ar: "مرحباً" },
+    book: { es: "libro", fr: "livre", ar: "كتاب" },
+    apple: { es: "manzana", fr: "pomme", ar: "تفاح" },
+};
+
+languageSelect.addEventListener('change', (e) => {
+    const selectedLanguage = e.target.value;
+    const selectedContent = content[selectedLanguage];
+
+    bookTitle.textContent = selectedContent.title;
+    bookText.textContent = selectedContent.text;
+    bookAudio.src = selectedContent.audioSrc;
+});
+
+function translateWord() {
+    const word = dictInput.value.toLowerCase();
+    if (dictionary[word]) {
+        const translations = dictionary[word];
+        dictText.innerHTML = `
+            <strong>Spanish:</strong> ${translations.es} <br>
+            <strong>French:</strong> ${translations.fr} <br>
+            <strong>Arabic:</strong> ${translations.ar}
+        `;
+    } else {
+        dictText.textContent = "Translation not available.";
+    }
+}
